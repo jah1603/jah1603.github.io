@@ -47,12 +47,12 @@ background: '/img/posts/06.jpg'
 
 <h2 class="section-heading">Simple Geolocation Example</h2>
 
-<p>In this tutorial we will be looking at a geolocation method that <a href="https://level-apps.co.uk">LevelApps<a/> implemented in a recent project.</p>
+<p>In this tutorial we will be looking at a geolocation method that <a href="https://level-apps.co.uk">LevelApps<a/> implemented in a <a href="https://play.google.com/store/apps/details?id=com.levelapps.nuv">recent project<a/>.</p>
 
 <p><a href="https://level-apps.co.uk">LevelApps<a/> were working on a project which required them to display a list of venues within a user-specified distance of the current location. It was therefore important to take advantage of the React component lifecycle method <span style="background-color: dimgray; color: white">componentDidMount</span> to retrieve the device's coordinates as soon as the user signed in.</p>
 
-<img style="width: 70%; margin-left: 15%" class="img-fluid" src="/img/geolocation/geolocation_method.png" alt="Demo Image">
-<span class="caption text-muted">Original geolocation method used by LevelApps</span>
+<img style="width: 84%; margin-left: 8%" class="img-fluid" src="/img/geolocation/geolocation_method.png" alt="Demo Image">
+<span class="caption text-muted">Original (poorly implemented) geolocation method used by LevelApps</span>
 
 <p>Several things are striking about the above code on first glance. Firstly, it's obvious that it could be broken down into separate functions in line with the <a href="https://codeburst.io/understanding-solid-principles-single-responsibility-b7c7ec0bf80">single responsibility principle<a/>.</p>
 
@@ -70,24 +70,24 @@ background: '/img/posts/06.jpg'
 
 <p>Our first line of attack involves modularising the current code. Let's split it into sub-methods, one to set the state and the other to handle the location errors.</p>
 
-<img style="width: 70%; margin-left: 15%" class="img-fluid" src="/img/geolocation/refactored_location.png" alt="Demo Image">
+<img style="width: 88%; margin-left: 6%" class="img-fluid" src="/img/geolocation/refactored_location.png" alt="Demo Image">
 <span class="caption text-muted">Refactored location method</span>
 
 <p>This is already much better than before. Now let's move on to handling the errors.</p>
 
-<img style="width: 70%; margin-left: 15%" class="img-fluid" src="/img/geolocation/refactored_errors.png" alt="Demo Image">
+<img style="width: 84%; margin-left: 8%" class="img-fluid" src="/img/geolocation/refactored_errors.png" alt="Demo Image">
 <span class="caption text-muted">Refactored error handling method</span>
 
  <blockquote class="blockquote">Some readers may point out - quite rightly - that we perhaps should have used multiple error codes to handle specific cases i.e. the user denying the app permission to access their location, but we chose not to do so here for the sake of concision.</blockquote>
 
 <p>If we pass these two method into the <span style="background-color: dimgray; color: white"> getCurrentPosition</span> method called by <span style="background-color: dimgray; color: white"> componentDidMount</span>, we should be all set.</p>
 
-<img style="width: 70%; margin-left: 15%" class="img-fluid" src="/img/geolocation/refactored_errors.png" alt="Demo Image">
+<img style="width: 88%; margin-left: 6%" class="img-fluid" src="/img/geolocation/refactored_cdm.png" alt="Demo Image">
 <span class="caption text-muted">Refactored method within <i>componentDidMount</i></span>
 
 <p>And voilà - we now have a fully functional set of methods to retrieve a user's current location from the Geolocation API. Hopefully this will prove useful when you come to develop your own apps in React Native!</p>
 
-<blockquote class="blockquote">Before deploying to the Google Play Store or the iOS App Store, you will need to configure appropriate <i>Permissions</i> to make it known that you will require access to your users' locations.</blockquote>
+<blockquote class="blockquote">Before deploying to the Google Play Store or the iOS App Store, you will need to configure appropriate <i>Permissions</i> to make it known that you require access to your users' locations.</blockquote>
 
 <blockquote class="blockquote">If you are using an emulator in Android Studio, you may find that geolocation does not work.</blockquote>
 
