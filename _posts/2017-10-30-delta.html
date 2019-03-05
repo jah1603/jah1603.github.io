@@ -6,35 +6,40 @@ date:   2019-02-6 23:45:13 -0400
 background: '/img/posts/05.jpg'
 ---
 
-<p>One commonly encountered issue with React Native maps is their inability to zoom to a a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.</p>
+<p><a href="https://level-apps.co.uk">LevelApps<a/> recently came across an issue with React Native maps, revolving around the map package's inability to automatically adjust zoom level in accordance with geographical data spread.</p>
 
-<p>Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science. The early warnings about technological dangers also come from science.</p>
+<p>The team were rendering a variety of eateries lying within a given radius (in kilometres) of the user's location, but they noticed that they needed to set the map's zoom level manually.</p>
 
-<p>What was most significant about the lunar voyage was not that man set foot on the Moon but that they set eye on the earth.</p>
+<p>After some judicious online research, the team stumbled upon a convenient solution which allowed them to calculate a tailored zoom level depending on the search radius.</p>
 
-<p>A Chinese tale tells of some men sent to harm a young girl who, upon seeing her beauty, become her protectors rather than her violators. That's how I felt seeing the Earth for the first time. I could not help but love and cherish her.</p>
+<h2 class="section-heading">Basic Problem</h2>
 
-<p>For those who have seen the Earth from space, and for the hundreds and perhaps thousands more who will, the experience most certainly changes your perspective. The things that we share in our world are far more valuable than those which divide us.</p>
+<p>Latitude and longitude deltas determine the amount of west-east distance to be displayed on the map. In practice, the map computes two ratios (longitude delta to map width and latitude delta to map height) and uses the greater of the two to set the zoom level that the end user sees.</p>
 
-<h2 class="section-heading">The Final Frontier</h2>
+<p>Uppermost in our minds was the need to avoid situations where a significant number of eateries were outside the default map viewport, thereby requiring the user to scroll to see them.</p>
 
-<p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
+<h2 class="section-heading">Geometry to the Rescue</h2>
+<p>Eventually <a href="https://level-apps.co.uk">LevelApps<a/> found a solution which enabled them to overcome this rather irksome issue.</p>
 
-<p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
+<img style="width: 80%; margin-left: 10%" class="img-fluid" src="/img/geometry/map_geometry.png" alt="Geometry Solution">
+<span class="caption text-muted">Equations used to overcome the <i>delta problem</i></span>
 
-<blockquote class="blockquote">The dreams of yesterday are the hopes of today and the reality of tomorrow. Science has not yet mastered prophecy. We predict too much for the next year and yet far too little for the next ten.</blockquote>
+<p>The equation only required three arguments: the search radius and the user's current latitude and longitude.</p>
 
-<p>Spaceflights cannot be stopped. This is not the work of any one man or even a group of men. It is a historical process which mankind is carrying out in accordance with the natural laws of human development.</p>
+<img style="width: 40%; margin-left: 30%" class="img-fluid" src="/img/geometry/map_10_km.png" alt="10km Radius">
+<span class="caption text-muted">Map zoom level with a search radius of <i>10 kilometres</i></span>
 
-<h2 class="section-heading">Reaching for the Stars</h2>
+<p>That meant the map self-adjusted depending on the user-specified search radius.</p>
 
-<p>As we got further and further away, it [the Earth] diminished in size. Finally it shrank to the size of a marble, the most beautiful you can imagine. That beautiful, warm, living object looked so fragile, so delicate, that if you touched it with a finger it would crumble and fall apart. Seeing this has to change a man.</p>
+<img style="width: 40%; margin-left: 30%" class="img-fluid" src="/img/geometry/map_100_km.png" alt="100km Radius">
+<span class="caption text-muted">Map zoom level with a search radius of <i>100 kilometres</i></span>
 
-<img class="img-fluid" src="https://source.unsplash.com/Mn9Fa_wQH-M/800x450" alt="Demo Image">
-<span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
+<p>When the search radius widened, the zoom level was decreased accordingly, resulting in a user-friendly map experience.</p>
 
-<p>Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds, to seek out new life and new civilizations, to boldly go where no man has gone before.</p>
+<h2 class="section-heading">Reflections</h2>
 
-<p>As I stand out here in the wonders of the unknown at Hadley, I sort of realize there’s a fundamental truth to our nature, Man must explore, and this is exploration at its greatest.</p>
+<p>Unfortunately the map is still not as well configured as it could be. Ideally the map's zoom level would also factor in other considerations, like the most outlying data point. That way we could ensure that every single data point was neatly enclosed in the map with unused map space kept to a minimum.</p>
 
-<p>Placeholder text by <a href="http://spaceipsum.com/">Space Ipsum</a>. Photographs by <a href="https://unsplash.com/">Unsplash</a>.</p>
+<blockquote class="blockquote">We hope the solution in this article helped you as much discovering it helped us. Let us know if you have a better one!</blockquote>
+
+<p>All code content courtesy of <a href="http://level-apps.co.uk">LevelApps</a>. Photographs also by <a href="https://level-apps.co.uk">LevelApps</a>.</p>
