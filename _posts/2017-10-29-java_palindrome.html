@@ -1,40 +1,48 @@
 ---
 layout: post
-title:  "Check if a string is a palindrome in Java"
-subtitle: "A very commonly encountered interview challenge"
+title:  "Checking if a string is a palindrome in Java"
+subtitle: "Addressing a very commonly encountered interview challenge"
 date:   2019-02-17 23:45:13 -0400
 background: '/img/posts/04.jpg'
 ---
 
-<p>Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.</p>
+<p>As most people know, a palindrome string is one which reads the same backwards as it does forwards. English examples include "Madam, I'm Adam" and "racecar".</p>
 
-<p>Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science. The early warnings about technological dangers also come from science.</p>
+<p>Eagle-eyed readers will point out that the first of these is not, strictly speaking, a palindrome, for it contains a comma and an apostrophe and cannot therefore be regarded as a palindrome in a programming context.</p>
 
-<p>What was most significant about the lunar voyage was not that man set foot on the Moon but that they set eye on the earth.</p>
+<p>In any case, palindrome checking is a very common challenge set for applicants during a tech job interview. Though this challenge might seem totally disconnected from practical reality, palindromes do occur in nature and it could be useful to know how to recognise them programmatically if you are dealing with <a href="http://www.biology-pages.info/P/Palindromes.html">biological data</a>.</p>
 
-<p>A Chinese tale tells of some men sent to harm a young girl who, upon seeing her beauty, become her protectors rather than her violators. That's how I felt seeing the Earth for the first time. I could not help but love and cherish her.</p>
+<blockquote class="blockquote">In this post we're going to explore two different ways of solving this problem in Java. For the sake of simplicity we will assume that the string is predefined and there is no need to process user input. Although every solution presented here is technically <i>O(n)</i> in time complexity, we examine this in more detail in order to determine the best solution.</blockquote>
 
-<p>For those who have seen the Earth from space, and for the hundreds and perhaps thousands more who will, the experience most certainly changes your perspective. The things that we share in our world are far more valuable than those which divide us.</p>
+<h2 class="section-heading">One Possible Solution</h2>
 
-<h2 class="section-heading">The Final Frontier</h2>
+<p>Initially this solution seems convincing; it is intuitive and concise and simply executes an <i>equality</i> comparison between the string and its reversed form.</p>
 
-<p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
+<img style="width: 84%; margin-left: 8%" class="img-fluid" src="/img/java/simple_solution.png" alt="Simple Solution">
+<span class="caption text-muted">A simple and relatively inefficient solution to the palindrome checker problem</span>
 
-<p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
+<p>We need to examine this algorithm more closely to get a better idea of how good its performance is in terms of time and space complexity. Measured using <i>O(n)</i> notation, this algorithm is <i>O(n)</i> i.e. linear. We will only focus on time complexity to keep things simple.</p>
 
-<blockquote class="blockquote">The dreams of yesterday are the hopes of today and the reality of tomorrow. Science has not yet mastered prophecy. We predict too much for the next year and yet far too little for the next ten.</blockquote>
+<p>On closer consultation of the Java docs, it becomes clear that in the worst-case scenario - i.e. when the string <i>is</i> a palindrome - the time complexity equates to <i>3n + 16</i>, the constant 16 term arising as a result of StringBuilder() freeing up 16 memory slots when creating a string.</p>
 
-<p>Spaceflights cannot be stopped. This is not the work of any one man or even a group of men. It is a historical process which mankind is carrying out in accordance with the natural laws of human development.</p>
+<blockquote class="blockquote">Let's see if we can do a little bit better than that.</blockquote>
 
-<h2 class="section-heading">Reaching for the Stars</h2>
+<h2 class="section-heading">A Second Possible Solution</h2>
 
-<p>As we got further and further away, it [the Earth] diminished in size. Finally it shrank to the size of a marble, the most beautiful you can imagine. That beautiful, warm, living object looked so fragile, so delicate, that if you touched it with a finger it would crumble and fall apart. Seeing this has to change a man.</p>
+<p>Though the code here initially appears more complex than the previous solution, it does represent an improvement in terms of time complexity.</p>
 
-<img class="img-fluid" src="https://source.unsplash.com/Mn9Fa_wQH-M/800x450" alt="Demo Image">
-<span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
+<img style="width: 84%; margin-left: 8%" class="img-fluid" src="/img/java/better_solution.png" alt="Better Solution">
+<span class="caption text-muted">A slightly more efficient solution to the palindrome checker problem</span>
 
-<p>Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds, to seek out new life and new civilizations, to boldly go where no man has gone before.</p>
+<p>Considering the worst-case scenario, this program will iterate over the entire length of the string, implying a time complexity of <i>n</i>, since it makes exactly <i>n</i> inequality checks in this case.</p>
 
-<p>As I stand out here in the wonders of the unknown at Hadley, I sort of realize there’s a fundamental truth to our nature, Man must explore, and this is exploration at its greatest.</p>
+<h2 class="section-heading">A Third Possible Solution</h2>
 
-<p>Placeholder text by <a href="http://spaceipsum.com/">Space Ipsum</a>. Photographs by <a href="https://unsplash.com/">Unsplash</a>.</p>
+<p>However, there is actually no need to perform so many inequality checks. It is illogical to iterate over the entire length of the string as it is sufficient to compare the first half to the second half.</p>
+
+<img style="width: 84%; margin-left: 8%" class="img-fluid" src="/img/java/best_solution.png" alt="Best Solution">
+<span class="caption text-muted">The most efficient of the solutions to the palindrome checker problem</span>
+
+<p>Hence we can implement the above solution which is <i>n/2</i> in time complexity in the worst-case scenario (the string being a palindrome). If the length of the string is an odd number, this is reduced to <i>(n - 1)/2</i>.</p>
+
+<blockquote class="blockquote">So that marks the end of today's post. The goal of this article was to explain the finer points of this problem. Let me know if you spotted any inaccuracies in the post.</blockquote>
