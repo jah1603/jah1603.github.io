@@ -9,3 +9,11 @@ img/posts/04.jpg: 04.jpg
 img/bg-about.jpg: bg-about.jpg
 img/bg-contact.jpg: bg-contact.jpg
 img/bg-index.jpg: bg-index.jpg
+img/geolocation.jpg: geolocation.jpg
+img/geoloation.jpg: geoloation.jpg
+img/geolocation.png: geolocation.png
+img/geolocation/position.png: position.png
+img/geolocation/geolocation_method.png: geolocation_method.png
+img/geolocation/refactored_cdm.png: refactored_cdm.png
+img/geolocation/refactored_location.png: refactored_location.png
+img/geolocation/refactored_errors.png: refactored_errors.png

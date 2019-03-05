@@ -1,0 +1,94 @@
+---
+layout: post
+title:  "Geolocation and how it can supercharge your React Native applications"
+date:   2019-03-01 10:45:13 -0400
+background: '/img/posts/06.jpg'
+---
+
+<p>In modern mobile applications a built-in geolocation feature is practically a given. Whether it's for presenting users with a list of results (e.g. restaurants or cinemas) in the vicinity or for allowing them to 'check in' at a location, geolocation is an integral part of what we've come to expect from many types of mobile apps.</p>
+
+<p>Further applications of geolocation include location-based marketing, route mapping and distance calculation; anybody who has ever used <i>Uber</i> or played <i>Pokemon Go</i> is sure to recognise the usefulness of the second two.</p>
+
+<p>With such a wide range of applications, it's perhaps not so surprising that geolocation is one of the most frequently exploited features of modern smartphones.</p>
+
+<p>Before we delve any deeper into how we might use such a feature in a React Native app, let's take a closer look at how it actually works.</p>
+
+<h2 class="section-heading">Understanding Geolocation Technology</h2>
+
+<p>Put simply, geolocation is the estimation of a device's geographic position in real-world terms. Contrary to what you may have imagined, this does not necessarily require an Internet connection.</p>
+
+<p>Estimating a device's position can be done in a variety of ways.</p>
+
+<p><i>WiFi</i> can be used to great effect - with less drain on battery life than certain other options - but its advantages are largely confined to urban areas with widespread 3G access points.</p>
+
+<p><i>GPS</i>, or <i>Global Positioning Systems</i>, can calculate the position of a device using a technique called geometric trilateration (explained <a href="https://locationbased-services.de/en/start/positioning/trilateration-triangulation-fingerprinting/">here<a/>).</p>
+
+<p>A mobile phone's <i>Cell ID</i> makes it possible to determine the phone's position via the signals emitted by the cell tower to which it is connected. One downside of this approach is that it depends on environmental conditions and the number of other phones in use nearby.</p>
+
+<p>A final option is assisted GPS, also known as <i>A-GPS</i>, which combines all three of the above, delivering a highly accurate performance. One caveat is that it is liable to deplete the device's battery life rapidly.</p>
+
+<img style="width: 50%; margin-left: 25%" class="img-fluid" src="/img/geolocation.png" alt="Demo Image">
+<span class="caption text-muted">Geolocation typically involves communication with satellites</span>
+
+<p>Now that we've examined the inner workings of geolocation, let's turn our attention to how we might go about implementing it in a React Native project.</p>
+
+<h2 class="section-heading">Geolocation in React Native</h2>
+
+<p>React Native makes use of the <i>Geolocation API</i>, which developers can use to calculate a device's current location coordinates by using a method called <span style="background-color: dimgray; color: white"> getCurrentPosition</span>.</p>
+
+<img style="width: 50%; margin-left: 25%" class="img-fluid" src="/img/geolocation/position.png" alt="Demo Image">
+<span class="caption text-muted">Sample <i>position</i> response from the Geolocation API</span>
+
+<p>It is worth noting that the API also includes a useful method called <span style="background-color: dimgray; color: white">watchPosition</span>, which returns a new set of position coordinates in response to significant changes in a device's position, but for the purposes of this article we will be focusing exclusively on the first method.</p>
+
+<p>Users also have the option to pass in an extra argument to the <span style="background-color: dimgray; color: white"> getCurrentPosition</span> method. Of the parameters available, <span style="background-color: dimgray; color: white">enableHighAccuracy</span>, which takes a boolean value, is perhaps the most commonly used. Setting this to <i>true</i> is likely to place high demands on the device's battery.</p>
+
+<p>Now that we've covered the basics of how geolocation is implemented in React Native, let's move on to a genuine example which shows how you can determine a device's location within a <i>bona fide</i> app.</p>
+
+<h2 class="section-heading">Simple Geolocation Example</h2>
+
+<p>In this tutorial we will be looking at a geolocation method that <a href="https://level-apps.co.uk">LevelApps<a/> implemented in a recent project.</p>
+
+<p><a href="https://level-apps.co.uk">LevelApps<a/> were working on a project which required them to display a list of venues within a user-specified distance of the current location. It was therefore important to take advantage of the React component lifecycle method <span style="background-color: dimgray; color: white">componentDidMount</span> to retrieve the device's coordinates as soon as the user signed in.</p>
+
+<img style="width: 70%; margin-left: 15%" class="img-fluid" src="/img/geolocation/geolocation_method.png" alt="Demo Image">
+<span class="caption text-muted">Original geolocation method used by LevelApps</span>
+
+<p>Several things are striking about the above code on first glance. Firstly, it's obvious that it could be broken down into separate functions in line with the <a href="https://codeburst.io/understanding-solid-principles-single-responsibility-b7c7ec0bf80">single responsibility principle<a/>.</p>
+
+<p>Secondly, seasoned JavaScript developers will note the use of the ES6 arrow function syntax.</p>
+
+<p>Thirdly, those familiar with React Native - or indeed with React in general - will note our use of <span style="background-color: dimgray; color: white"> setState</span> to persist the latitude and longitude values returned by the API.</p>
+
+<blockquote class="blockquote">A quick reminder for those who are making their first foray into the React universe: state applies to mutable data i.e. data which will change, while props are immutable and get passed between components. In this case we can therefore expect the position state data to be passed to some kind of map component.</blockquote>
+
+<p>Fourthly, data is being logged out. This is not absolutely necessary in practice, but we have kept it in for illustrative purposes.</p>
+
+<p>Given that the code above is lacking many of the qualities of <i>good code</i>, we will now try to refactor it and bring it more into conformity with what constitutes <i>good code</i>.</p>
+
+<h2 class="section-heading">Refactoring Our Example</h2>
+
+<p>Our first line of attack involves modularising the current code. Let's split it into sub-methods, one to set the state and the other to handle the location errors.</p>
+
+<img style="width: 70%; margin-left: 15%" class="img-fluid" src="/img/geolocation/refactored_location.png" alt="Demo Image">
+<span class="caption text-muted">Refactored location method</span>
+
+<p>This is already much better than before. Now let's move on to handling the errors.</p>
+
+<img style="width: 70%; margin-left: 15%" class="img-fluid" src="/img/geolocation/refactored_errors.png" alt="Demo Image">
+<span class="caption text-muted">Refactored error handling method</span>
+
+ <blockquote class="blockquote">Some readers may point out - quite rightly - that we perhaps should have used multiple error codes to handle specific cases i.e. the user denying the app permission to access their location, but we chose not to do so here for the sake of concision.</blockquote>
+
+<p>If we pass these two method into the <span style="background-color: dimgray; color: white"> getCurrentPosition</span> method called by <span style="background-color: dimgray; color: white"> componentDidMount</span>, we should be all set.</p>
+
+<img style="width: 70%; margin-left: 15%" class="img-fluid" src="/img/geolocation/refactored_errors.png" alt="Demo Image">
+<span class="caption text-muted">Refactored method within <i>componentDidMount</i></span>
+
+<p>And voilà - we now have a fully functional set of methods to retrieve a user's current location from the Geolocation API. Hopefully this will prove useful when you come to develop your own apps in React Native!</p>
+
+<blockquote class="blockquote">Before deploying to the Google Play Store or the iOS App Store, you will need to configure appropriate <i>Permissions</i> to make it known that you will require access to your users' locations.</blockquote>
+
+<blockquote class="blockquote">If you are using an emulator in Android Studio, you may find that geolocation does not work.</blockquote>
+
+<p>All code content courtesy of <a href="http://level-apps.co.uk">LevelApps</a>. Photographs also by <a href="https://level-apps.co.uk">LevelApps</a>.</p>
