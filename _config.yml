@@ -1,0 +1,22 @@
+title:             James Henderson
+email:             hendersonjamesalexander@gmail.com
+description:       Full-stack software developer and co-founder of NüV. A collection of my writings on technical matters
+author:            James A. Henderson
+baseurl:           "/"
+url:               "http://jah1603.github.io"
+
+# Social Profiles
+twitter_username:  AppsLevel
+github_username:   jah1603
+
+# Build settings
+markdown:          kramdown
+paginate:          5
+paginate_path:     "/posts/page:num/"
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-compress-images
+  - jemoji
+compress_images:
+  images_path: "img/**/*.{gif,png,jpg,jpeg,svg}"
