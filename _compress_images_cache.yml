@@ -29,3 +29,6 @@ img/java/simple_solution.png: simple_solution.png
 img/native_components/better_solution.png: better_solution.png
 img/java/better_solution.png: better_solution.png
 img/java/best_solution.png: best_solution.png
+img/posts/compass.jpg: compass.jpg
+img/geometry/map_100_km.png: map_100_km.png
+img/geometry/map_10_km.png: map_10_km.png
